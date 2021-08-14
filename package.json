@@ -1,8 +1,9 @@
 {
   "name": "serverless-ngrok-tunnel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Serverless plugin that creates ngrok public tunnel on localhost.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mitipi/serverless-ngrok-tunnel.git"
@@ -13,15 +14,25 @@
     "ngrok",
     "tunnel"
   ],
-  "author": "Nenad Panic",
+  "authors": [
+    "Wafir LLC",
+    "Nenad Panic"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mitipi/serverless-ngrok-tunnel/issues"
   },
   "homepage": "https://github.com/mitipi/serverless-ngrok-tunnel#readme",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn build"
+  },
   "dependencies": {
-    "envfile": "^2.3.0",
-    "lodash": "^4.17.10",
-    "ngrok": "2.3.0"
+    "envfile": "^6.17.0",
+    "ngrok": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "typescript": "^4.3.5"
   }
 }
