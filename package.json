@@ -2,7 +2,7 @@
   "name": "serverless-ngrok-tunnel",
   "version": "0.0.4",
   "description": "Serverless plugin that creates ngrok public tunnel on localhost.",
-  "main": "dist/index.js",
+  "main": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/mitipi/serverless-ngrok-tunnel#readme",
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build",
+    "postbuild": "terser -c -m --source-map \"content='dist/index.js.map',filename='dist/index.min.js.map'\" -o dist/index.min.js -- dist/index.js"
   },
   "dependencies": {
     "envfile": "^6.17.0",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.6.1",
+    "terser": "^5.7.1",
     "typescript": "^4.3.5"
   }
 }

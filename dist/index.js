@@ -16,6 +16,9 @@ const ngrok_1 = __importDefault(require("ngrok"));
 const envfile_1 = __importDefault(require("envfile"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+/**
+ * Creates public tunnels for provided ports on localhost. Also, writes tunnels url to .env file and deletes them after session is over.
+ */
 class ServerlessTunnel {
     constructor(serverless, options) {
         this.serverless = serverless;
@@ -30,11 +33,13 @@ class ServerlessTunnel {
                 lifecycleEvents: ['init']
             }
         };
+        // Run tunnels after serverless-offline
         this.hooks = {
             'tunnel:init': this.runServer.bind(this, true),
             'before:offline:start:init': this.runServer.bind(this)
         };
     }
+    // async runTunnel ({port, envProp, ws, path, ngrokOptions}: { port: number, envProp: any, ws: any, path: any, ngrokOptions: Ngrok.Options }) {
     runTunnel({ port, envProp, ws = false, path, ngrokOptions }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -66,6 +71,7 @@ class ServerlessTunnel {
     }
     runServer(selfInit) {
         var _a, _b;
+        // this.options = _.get(this.serverless, 'service.custom.ngrokTunnel', {})
         this.options = (_b = (_a = this.serverless.service.custom) === null || _a === void 0 ? void 0 : _a.ngrokTunnel) !== null && _b !== void 0 ? _b : {};
         if (this.options.envPath) {
             this.noEnvFile = false;
